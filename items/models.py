@@ -24,7 +24,7 @@ class Item(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    list = models.ForeignKey(List, on_delete=models.CASCADE)
+    list = models.CharField(max_length=200, blank=True)
     due_date = models.DateField(default=tomorrow)
     overdue = models.BooleanField(default=False)
     priority = models.CharField(
@@ -37,7 +37,7 @@ class Item(models.Model):
         choices=state_choice,
         default='todo'
         )
-    file = models.ImageField(
+    file = models.FileField(
         upload_to='raw/',
         blank=True,
         storage=RawMediaCloudinaryStorage()
