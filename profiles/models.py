@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
-    created_on = models.DateField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_myggpz.jpg'
     )

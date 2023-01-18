@@ -24,3 +24,11 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'description', 'list', 'owner',
                   'profile_id', 'profile_image', 'is_owner', 'due_date',
                   'overdue', 'priority', 'state', 'file']
+
+
+class ItemDetailSerializer(ItemSerializer):
+    """
+    Serializer for the Item model used in Detail view.
+    List is a read only field to avoid having to set it each update
+    """
+    list = serializers.ReadOnlyField(source='list.id')
