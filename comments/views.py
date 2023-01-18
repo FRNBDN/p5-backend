@@ -1,12 +1,16 @@
 from rest_framework import generics, permissions
-from drf_api.permissions import isOwnerOrReadOnly
+from drf_api.permissions import IsOwner
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
 
 
 class CommentList(generics.ListCreateAPIView):
+    """
+    List of all comments, create a comment.
+    when comment created, owner is set to user.
+    """
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsOwner]
     queryset = Comment.objects.all()
 
     def perform_create(self, serializer):
@@ -14,6 +18,9 @@ class CommentList(generics.ListCreateAPIView):
 
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [isOwnerOrReadOnly]
+    """
+    Comment detail, update or delete functionality for owner.
+    """
+    permission_classes = [IsOwner]
     serializer_class = CommentDetailSerializer
     queryset = Comment.objects.all()
