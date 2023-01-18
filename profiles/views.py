@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import generics
 from .models import Profile
 from .serializers import ProfileSerializer
@@ -17,6 +18,9 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
     Profile detai view, update functionality for owner.
     """
+    queryset = Profile.objects.annotate(
+        list_count=Count('owner__list', distinct=True),
+        item_count=Count('owner__item', distinct=True),
+    ).order_by('-created_on')
     serializer_class = ProfileSerializer
-    queryset = Profile.objects.all()
     permission_classes = [IsOwner]

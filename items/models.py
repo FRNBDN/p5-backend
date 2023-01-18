@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from lists.models import List
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def tomorrow():

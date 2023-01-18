@@ -7,6 +7,7 @@ class ListSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    items_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -15,4 +16,4 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
         fields = ['id', 'title', 'description', 'completed', 'owner',
-                  'profile_id', 'profile_image', 'is_owner']
+                  'profile_id', 'profile_image', 'is_owner', 'items_count'] 

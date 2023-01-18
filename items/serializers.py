@@ -7,6 +7,7 @@ class ItemSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    comments_count = serializers.ReadOnlyField()
 
     def validate_file(self, value):
         if value.size > 1024 * 1024 * 10:
@@ -23,7 +24,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = ['id', 'title', 'description', 'list', 'owner',
                   'profile_id', 'profile_image', 'is_owner', 'due_date',
-                  'overdue', 'priority', 'state', 'file']
+                  'overdue', 'priority', 'state', 'file', 'comments_count']
 
 
 class ItemDetailSerializer(ItemSerializer):
