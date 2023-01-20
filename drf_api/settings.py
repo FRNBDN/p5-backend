@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from corsheaders.defaults import default_headers, default_methods
 import os
 import dj_database_url
 import re
+
 
 if os.path.exists('env.py'):
     import env
@@ -64,8 +66,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['localhost', os.environ.get('ALLOWED_HOST'),]
-CSRF_TRUSTED_ORIGINS = ['https://8000-frnbdn-p5backend-25nk1z0kj11.ws-us82.gitpod.io', 'https://8000-frnbdn-p5backend-25nk1z0kj11.ws-us83.gitpod.io']
 
+
+CORS_ALLOW_HEADERS = list(default_headers)
+CORS_ALLOW_METHODS = list(default_methods)
+CSRF_TRUSTED_ORIGINS = [os.environ.get(    'CLIENT_ORIGIN_DEV',    'CLIENT_ORIGIN',    )]
 
 # Application definition
 
@@ -109,7 +114,8 @@ MIDDLEWARE = [
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
+        os.environ.get('CLIENT_ORIGIN'),
+        os.environ.get('CLIENT_ORIGIN_DEV')
     ]
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
