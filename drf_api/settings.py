@@ -39,7 +39,7 @@ REST_FRAMEWORK = {
     )],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 3,
     'DATETIME_FORMAT': '%d %b %Y',
 }
 if 'DEV' not in os.environ:
@@ -70,7 +70,7 @@ ALLOWED_HOSTS = ['localhost', os.environ.get('ALLOWED_HOST'),]
 
 CORS_ALLOW_HEADERS = list(default_headers)
 CORS_ALLOW_METHODS = list(default_methods)
-CSRF_TRUSTED_ORIGINS = [os.environ.get(    'CLIENT_ORIGIN_DEV',    'CLIENT_ORIGIN',    )]
+CSRF_TRUSTED_ORIGINS = [os.environ.get('CLIENT_ORIGIN_DEV', 'CLIENT_ORIGIN',)]
 
 # Application definition
 
